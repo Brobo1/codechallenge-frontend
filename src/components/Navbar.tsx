@@ -1,31 +1,44 @@
 import { Menu, MenuProps } from "antd";
 import { useAppDispatch, useAppSelector } from "../store/Store.ts";
-import { navSlice } from "../store/NavSlice.ts";
-const { navTo } = navSlice.actions;
+import { getCategories } from "../http/category/httpCategories.ts";
+import { useEffect } from "react";
+import { setCurrentCategory } from "../store/NavSlice";
 
 export function Navbar() {
   const dispatch = useAppDispatch();
-  const { current } = useAppSelector((state) => state.nav);
+  const { category, currentCategory, loading } = useAppSelector(
+    (state) => state.nav,
+  );
 
   const onClick: MenuProps["onClick"] = (e) => {
-    dispatch(navTo(e.key));
+    dispatch(setCurrentCategory(e.key.toString()));
   };
-  console.log(current);
 
-  const items: MenuProps["items"] = [
-    {
-      label: "Dog",
-      key: "dog",
-    },
-    {
-      label: "Dog2",
-      key: "dog2",
-    },
-  ];
+  console.log(currentCategory);
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
+
+  const items: MenuProps["items"] = category.map((cat) => ({
+    label: cat.name,
+    key: cat.id,
+  }));
 
   return (
-    <div className={"w-1/1"}>
-      <Menu className={""} items={items} mode="horizontal" onClick={onClick} />
-    </div>
+    <>
+      {loading ? (
+        <p>loading...</p>
+      ) : (
+        <div className={""}>
+          <Menu
+            className={""}
+            items={items}
+            mode="horizontal"
+            onClick={onClick}
+          />
+        </div>
+      )}
+    </>
   );
 }

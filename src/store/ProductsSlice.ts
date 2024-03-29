@@ -2,18 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ProductType } from "../types/Types.ts";
 import { getProducts } from "../http/product/httpProducts.ts";
 
-type ProductState = {
+type ProductsState = {
   loading: boolean;
   data: ProductType[];
 };
 
-const initialState: ProductState = {
+const initialState: ProductsState = {
   loading: false,
   data: [],
 };
 
 export const productsSlice = createSlice({
-  name: "product",
+  name: "products",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
