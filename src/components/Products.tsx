@@ -18,6 +18,7 @@ export function Products() {
         <Card
           className={"min-w-60 "}
           hoverable
+          loading={loading}
           cover={
             <img src={"https://placehold.co/400x200"} alt={product.name} />
           }
