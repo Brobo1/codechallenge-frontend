@@ -1,15 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ProductType } from "../types/Types.ts";
-import { getProducts } from "../http/product/httpProducts.ts";
+import { getProduct } from "../http/product/httpProduct.ts";
 
-interface ProductState {
+interface ProductsState {
   loading: boolean;
-  data: ProductType[];
+  data: ProductType;
 }
 
-const initialState: ProductState = {
+const initialState: ProductsState = {
   loading: false,
-  data: [],
+  data: { id: 0, name: "", price: 0, description: "" },
 };
 
 export const productSlice = createSlice({
@@ -17,14 +17,14 @@ export const productSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getProducts.pending, (state) => {
+    builder.addCase(getProduct.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(getProducts.fulfilled, (state, action) => {
+    builder.addCase(getProduct.fulfilled, (state, action) => {
       state.data = action.payload;
       state.loading = false;
     });
-    builder.addCase(getProducts.rejected, (state) => {
+    builder.addCase(getProduct.rejected, (state) => {
       state.loading = false;
     });
   },
