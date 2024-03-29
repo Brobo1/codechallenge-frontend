@@ -9,5 +9,9 @@ export const navSlice = createSlice({
   initialState: {
     current: "",
   } as NavState,
-  reducers: {},
+  reducers: {
+    navTo: (state, action) => {
+      state.current = action.payload;
+    },
+  },
 });

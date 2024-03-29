@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 import { ProductType } from "../types/Types.ts";
 import { getProducts } from "../http/product/httpProducts.ts";
 
-interface ProductState {
+type ProductState = {
   loading: boolean;
   data: ProductType[];
-}
+};
 
 const initialState: ProductState = {
   loading: false,
