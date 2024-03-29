@@ -24,8 +24,8 @@ export function Navbar() {
   ];
 
   return (
-    <>
+    <div className={"w-1/1"}>
       <Menu className={""} items={items} mode="horizontal" onClick={onClick} />
-    </>
+    </div>
   );
 }
